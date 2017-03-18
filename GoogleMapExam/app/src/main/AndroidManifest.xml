@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.shinhan.tosomeplace">
+    package="com.shinhan.googlemapexam">
 
     <permission
-        android:name="com.shinhan.tosomeplace.MAPS_RECEIVE"
+        android:name="com.shinhan.googlemapexam.MAPS_RECEIVE"
         android:protectionLevel="signature"/>
     <uses-permission
-        android:name="com.shinhan.tosomeplace.MAPS_RECEIVE"/>
+        android:name="com.shinhan.googlemapexam.MAPS_RECEIVE"/>
     <uses-permission
         android:name="android.permission.INTERNET"/>
     <uses-permission
@@ -28,26 +28,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <uses-library android:name="com.google.android.maps"/><meta-data
-        android:name="com.google.android.maps.v2.API_KEY"
-        android:value="AIzaSyD_3KoPtvaReW6rmAtvTsJb62kXHYkZlQ8"/>
+        <uses-library android:name="com.google.android.maps"/>
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyD_3KoPtvaReW6rmAtvTsJb62kXHYkZlQ8"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
 
-        <activity android:name=".Login">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PattenLogin" />
-        <activity android:name=".Home" />
-        <activity android:name=".UserList" />
-        <activity android:name=".UserMode" />
-        <activity android:name=".GroupMode" />
-        <activity android:name=".MapMode" />
     </application>
 
 </manifest>

@@ -11,17 +11,24 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
+        android:layout_weight="20"
         />
-    <ImageButton
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/login"
-        android:layout_weight="50"
-        android:onClick="onLogin"/>
+        android:layout_weight="60"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        >
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/login"
+            android:onClick="onLogin"/>
+    </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
+        android:layout_weight="20"
         />
 </LinearLayout>

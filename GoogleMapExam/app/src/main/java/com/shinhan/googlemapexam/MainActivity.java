@@ -1,8 +1,7 @@
-package com.shinhan.tosomeplace;
+package com.shinhan.googlemapexam;
 
-import android.*;
+import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -15,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-public class MapMode extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     SupportMapFragment mapFragment;
     GoogleMap map;
@@ -71,15 +69,8 @@ public class MapMode extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map_mode);
+        setContentView(R.layout.activity_main);
 
-        Intent recv = getIntent();
-        String string = recv.getStringExtra("title");
-        Util.getInstance().debug("title : "+string);
-        LinearLayout titleLayer = (LinearLayout)findViewById(R.id.title);
-        TextView textView = new TextView(this);
-        textView.setText(string);
-        titleLayer.addView(textView);
 
         // 지도
         mapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
@@ -121,20 +112,20 @@ public class MapMode extends AppCompatActivity {
         });
 
         //권한 요청
-        /*int permissionCheck = ContextCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION);
+        int permissionCheck = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
         if(permissionCheck != PackageManager.PERMISSION_GRANTED){ // 권한이 없다면
             if(ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION)){
+                    Manifest.permission.ACCESS_FINE_LOCATION)){
                 Toast.makeText(this,"GPS 연동 권한 필요합니다.",Toast.LENGTH_SHORT).show();
-                ActivityCompat.requestPermissions(this,new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION},1);
+                ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.ACCESS_FINE_LOCATION},1);
             }else {
-                ActivityCompat.requestPermissions(this,new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION},1);
+                ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.ACCESS_FINE_LOCATION},1);
             }
-        }*/
+        }
 
     }
-/*
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch(requestCode){
@@ -155,7 +146,7 @@ public class MapMode extends AppCompatActivity {
 
         //권한 요청
         int permissionCheck = ContextCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION);
+                Manifest.permission.ACCESS_FINE_LOCATION);
         if(permissionCheck == PackageManager.PERMISSION_GRANTED) {
             Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if(location != null){
@@ -163,11 +154,13 @@ public class MapMode extends AppCompatActivity {
                 textView.setText("내 위치 : "+location.getLatitude() + " // "+location.getLongitude());
                 showToastMessage("Last Known Location 위도 : "+location.getLatitude()+" // "+location.getLongitude());
                 setLocOnMap(location.getLatitude(),location.getLongitude());
+
+                //37.6535093 , 126.7489213
             }
             GPSListener gpsListener = new GPSListener();
             manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10000,0,gpsListener);
         }
-    }*/
+    }
 
     public void onWorldMapClicked(View view){
         if(map != null){
@@ -187,8 +180,9 @@ public class MapMode extends AppCompatActivity {
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(markers[currentMarkerIdx].latLng,15));
     }
-
-    /*
+    /**
+     * Location manager로 부터 GPS좌표가 변경이 되면 호출이 된다.
+     */
     private class GPSListener implements LocationListener {
         @Override
         public void onLocationChanged(Location location) {
@@ -211,8 +205,7 @@ public class MapMode extends AppCompatActivity {
         public void onProviderEnabled(String provider) {}
         @Override
         public void onProviderDisabled(String provider) {}
-    }*/
-
+    }
     public void setLocOnMap(double latitude, double longitude){
         LatLng curPoint = new LatLng(latitude,longitude);
         if(map != null){ // 맵 객체가 null이 아니면 현재 위치로 맵 이동시킴
